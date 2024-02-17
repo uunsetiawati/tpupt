@@ -1,0 +1,21 @@
+{
+	"short_name": "KITAPKU APPS",
+	"name": "Monitoring Kinerja Tenaga Pendamping Koperasi dan UKM",
+	"icons": [
+		{
+			"src": "/assets/icon-192.png",
+			"type": "image/png",
+			"sizes": "192x192"
+		},
+		{
+			"src": "/assets/icon-192.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"start_url": "/?source=pwa",
+	"background_color": "#075381",
+	"display": "standalone",
+	"scope": "/",
+	"theme_color": "#075381"
+}
