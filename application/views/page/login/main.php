@@ -34,8 +34,8 @@
                         <button type="submit" name="login" class="btn btn-success btn-block">LOGIN <ion-icon name="log-in-outline"></ion-icon></button>
                         <hr>
                         <a href="<?= base_url("auth/loginOTP") ?>" class="btn btn-warning btn-block"><ion-icon name="logo-whatsapp"></ion-icon> Login Via No HP</a>
-                        <a href="<?= base_url("auth/google") ?>" class="btn btn-danger btn-block"><ion-icon name="logo-google"></ion-icon> Login With Google</a>
-                        <?php if ($this->agent->platform() == "Android") {?>
+                        <!-- <a href="<?= base_url("auth/google") ?>" class="btn btn-danger btn-block"><ion-icon name="logo-google"></ion-icon> Login With Google</a>
+                        <?php if ($this->agent->platform() == "Android") {?> -->
                         <button type="button" class="btn btn-outline-secondary btn-block btn-sm" onclick="$('#android-add-to-home-screen').modal();">
                             <ion-icon name="logo-android"></ion-icon>
                             Install Aplikasi KITAPKU
