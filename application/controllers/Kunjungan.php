@@ -42,21 +42,21 @@ class Kunjungan extends CI_Controller
         }
 
         //Maksimal input 1x per jam
-        // $kunjungan_terakhir = $this->kunjungan_m->getByLatest(date("Y-m-d H"), $this->session->id);
-        // if ($kunjungan_terakhir->num_rows() > 0) {
-        //     $this->session->set_flashdata('danger', 'Maksimal Input 1x per jam. Masyarakat lebih senang jika mendapatkan pendampingan berkualitas.');
-        //     redirect("");
-        // }
+        $kunjungan_terakhir = $this->kunjungan_m->getByLatest(date("Y-m-d H"), $this->session->id);
+        if ($kunjungan_terakhir->num_rows() > 0) {
+            $this->session->set_flashdata('danger', 'Maksimal Input 1x per jam. Masyarakat lebih senang jika mendapatkan pendampingan berkualitas.');
+            redirect("");
+        }
 
         // Validasi perangkat yang digunakan
-        // if ($this->agent->is_mobile() and $this->agent->mobile() != "Nexus") {
+        if ($this->agent->is_mobile() and $this->agent->mobile() != "Nexus") {
             previllage($this->session->tipe_user, "1", "!=", "kunjungan/data");
             $data['title'] = "CHECK IN LOKASI";
             $this->templateadmin->load('template/dashboard', 'kunjungan/lokasi', $data);
-        // } else {
-            // $this->session->set_flashdata('danger', 'Share loc hanya bisa melalui perangkat mobile');
-            // redirect("");
-        // }
+        } else {
+            $this->session->set_flashdata('danger', 'Share loc hanya bisa melalui perangkat mobile');
+            redirect("");
+        }
     }
 
     /*
@@ -73,10 +73,10 @@ class Kunjungan extends CI_Controller
 
         // Agar tidak bisa check in di lokasi yang sama
         $kunjungan_terakhir = $this->kunjungan_m->getByLocation($post['lat'], $post['lng']);
-        // if ($kunjungan_terakhir->num_rows() > 0) {
-        //     $this->session->set_flashdata('danger', 'Anda Tidak bisa checkin di lokasi yang sama dalam sehari');
-        //     redirect("");
-        // }
+        if ($kunjungan_terakhir->num_rows() > 0) {
+            $this->session->set_flashdata('danger', 'Anda Tidak bisa checkin di lokasi yang sama dalam sehari');
+            redirect("");
+        }
 
         // Validasi menghindari injection. Alihkan jika posisi latitude dan longtitude tidak ada
         if ($post['lat'] == null or $post['lng'] == null) {
