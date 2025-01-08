@@ -460,7 +460,7 @@ class Kunjungan_m extends CI_Model
         $query = $this->db->query("
         SELECT user_id,wilayah_kerja,
         SUM(poin) AS total_score
-        FROM tb_leaderboard WHERE wilayah_kerja = ".$wilayah_kerja." AND YEAR(created) = 2024
+        FROM tb_leaderboard WHERE wilayah_kerja = ".$wilayah_kerja." AND YEAR(created) = 2025
         GROUP BY user_id
         ORDER BY SUM(poin) DESC");
         return $query;
