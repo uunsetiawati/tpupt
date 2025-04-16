@@ -29,13 +29,13 @@
             <!-- feed -->
             <div class="tab-pane fade show active" id="feed" role="tabpanel">
                 <div class="mt-2 pr-2 pl-2">
-                    <?php if ($device->num_rows() == null) { ?>
+                    <!-- <?php if ($device->num_rows() == null) { ?>
                         <div class="alert alert-warning alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                             <ion-icon name="warning-outline"></ion-icon>
                             Device ini belum terdaftar
                         </div>
-                    <?php } ?>
+                    <?php } ?> -->
                     <?php $this->view("message") ?>
                     <div class="row">
                         <div class="col-lg-2 col-4">
@@ -202,7 +202,7 @@
                     </div>
                 </div>
                 <div>
-                    <?php if ($kunjungan->num_rows() > 0) { ?>
+                    <!-- <?php if ($kunjungan->num_rows() > 0) { ?>
                         <br>
                         <div class="card text-white bg-info mb-2">
                             <div class="card-body">
@@ -210,10 +210,10 @@
                                 <h6 class="card-title">Bulan ini, anda telah melakukan pendampingan dengan estimasi sejauh <?= $total_jarak ?> km </h6>
                                 <p class="card-text">Sebuah kebanggan bagi Indonesia telah memilihmu yang senantiasa berjuang melakukan pendampingan demi kamajuan gerakan Koperasi / pelaku UKM dengan setulus hati. Semoga menjadi amal dan jariyah dari kita untuk bangsa dan negara.</p>
                             </div>
-                        </div>
-                        <div class="card text-center">
+                        </div> -->
+                        <!-- <div class="card text-center">
                             <img class="imaged w250" src="https://maps.googleapis.com/maps/api/staticmap?center=<?= $center ?>&zoom=12&scale=10&size=1200x500&maptype=roadmap&format=jpg&key=AIzaSyBulTatyUv6oR6ykvWU-QDzp-wYQXNWV7A&<?= $markers ?>" alt="Google map of -7.8081176,112.0413752" />
-                        </div>
+                        </div> -->
                     <?php } ?>
                 </div>
                 <!-- * feed -->
@@ -251,7 +251,7 @@
                         </div>
                     </a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="#" class="item">
                         <div class="in">
                             <div>
@@ -260,7 +260,7 @@
                             </div>
                         </div>
                     </a>
-                </li>
+                </li> -->
                 <li>
                     <a href="#" class="item">
                         <div class="in">
