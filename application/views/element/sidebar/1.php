@@ -10,7 +10,7 @@
         </a>
     </li>
     <li>
-        <a href="<?= site_url('kunjungan/checkin') ?>" class="item">
+        <a href="<?= site_url('kunjungan/addcheckinn') ?>" class="item">
             <div class="icon-box bg-primary">
                 <ion-icon name="map"></ion-icon>
             </div>

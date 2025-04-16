@@ -113,7 +113,7 @@
     <!-- App Bottom Menu -->
     <div class="appBottomMenu">
 
-        <a href="<?= site_url('kunjungan/checkin'); ?>" class="item">
+        <a href="<?= site_url('kunjungan/addcheckinn'); ?>" class="item">
             <div class="col">
                 <ion-icon name="map-outline"></ion-icon>
             </div>

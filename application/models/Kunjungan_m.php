@@ -191,7 +191,7 @@ class Kunjungan_m extends CI_Model
     function addCheckInNonLainnya($post)
     {
         //Migrasi Gambar Peta dari TMP ke Storage Utama
-        $params['loc_img'] =  $this->maps->saveMapsImg(FCPATH . $post['loc_img'], $this->session->hp);
+        // $params['loc_img'] =  $this->maps->saveMapsImg(FCPATH . $post['loc_img'], $this->session->hp);
         $params['id'] =  "";
         $params['user_id'] =  $this->session->id;
         $params['tipe'] =  $post['tipe'];
@@ -200,8 +200,8 @@ class Kunjungan_m extends CI_Model
         $params['hp'] =  $post['hp'];
         $params['tujuan'] =  $post['tujuan'];
         $params['translok'] =  $post['translok'];
-        $params['lat'] =  $post['lat'];
-        $params['lng'] =  $post['lng'];
+        // $params['lat'] =  $post['lat'];
+        // $params['lng'] =  $post['lng'];
         $params['created'] =  date("Y-m-d H:i:s");
         $params['ip_address'] = $this->input->ip_address();
         $this->db->insert('tb_kunjungan', $params);
@@ -210,7 +210,7 @@ class Kunjungan_m extends CI_Model
     function addCheckInLainnya($post)
     {
         //Migrasi Gambar Peta dari TMP ke Storage Utama
-        $params['loc_img'] =  $this->maps->saveMapsImg(FCPATH . $post['loc_img'], $this->session->hp);
+        // $params['loc_img'] =  $this->maps->saveMapsImg(FCPATH . $post['loc_img'], $this->session->hp);
         $params['id'] =  "";
         $params['user_id'] =  $this->session->id;
         $params['tipe'] =  $post['tipe'];
@@ -223,8 +223,8 @@ class Kunjungan_m extends CI_Model
         $params['tindak_lanjut'] =  $post['tindak_lanjut'];
         $params['foto_selfie'] =  $post['foto_selfie'];
         $params['foto_lokasi'] =  $post['foto_lokasi'];
-        $params['lat'] =  $post['lat'];
-        $params['lng'] =  $post['lng'];
+        // $params['lat'] =  $post['lat'];
+        // $params['lng'] =  $post['lng'];
         $params['created'] =  date("Y-m-d H:i:s");
         $params['ip_address'] = $this->input->ip_address();
         $this->db->insert('tb_kunjungan', $params);

@@ -29,10 +29,10 @@ class Kunjungan extends CI_Controller
         // Cek Device Terdaftar
         $this->load->model("validation_m");
         $cekDevice = $this->validation_m->cekDevice($this->agent->agent_string(), $this->agent->platform(), $this->agent->browser());
-        // if ($cekDevice->num_rows() == null and $this->session->tipe_user == "1") {
-        //     $this->session->set_flashdata('danger', 'Hanya bisa update kunjungan di device terdaftar');
-        //     redirect('');
-        // }
+        if ($cekDevice->num_rows() == null and $this->session->tipe_user == "1") {
+            $this->session->set_flashdata('danger', 'Hanya bisa update kunjungan di device terdaftar');
+            redirect('');
+        }
 
         // Cek Izin
         $cekIzin = $this->kunjungan_m->getAllByTable("tb_izin", "user_id", $this->session->id, date("Y-m-d"));
@@ -64,6 +64,52 @@ class Kunjungan extends CI_Controller
         Koperasi/UMKM/Wirausaha Pemula --> Isian (1)
         Kalau di Kantor --> Isian (2)
     */
+
+    function checkInn()
+    {
+        akses("tp");
+        previllage("1", $this->session->tipe_user, "!=", "");
+
+        // Cek Device Terdaftar
+        $this->load->model("validation_m");
+        // $cekDevice = $this->validation_m->cekDevice($this->agent->agent_string(), $this->agent->platform(), $this->agent->browser());
+        // if ($cekDevice->num_rows() == null and $this->session->tipe_user == "1") {
+        //     $this->session->set_flashdata('danger', 'Hanya bisa update kunjungan di device terdaftar');
+        //     redirect('');
+        // }
+
+        // Cek Izin
+        // $cekIzin = $this->kunjungan_m->getAllByTable("tb_izin", "user_id", $this->session->id, date("Y-m-d"));
+        // if ($cekIzin->num_rows() > 0) {
+        //     $this->session->set_flashdata('danger', 'Anda sudah melakukan mengajukan izin hari ini. Selamat beristirahat.');
+        //     redirect('');
+        // }
+
+        //Maksimal input 1x per jam
+        // $kunjungan_terakhir = $this->kunjungan_m->getByLatest(date("Y-m-d H"), $this->session->id);
+        // if ($kunjungan_terakhir->num_rows() > 0) {
+        //     $this->session->set_flashdata('danger', 'Maksimal Input 1x per jam. Masyarakat lebih senang jika mendapatkan pendampingan berkualitas.');
+        //     redirect("");
+        // }
+
+        // Validasi perangkat yang digunakan
+        // if ($this->agent->is_mobile() and $this->agent->mobile() != "Nexus") {
+            // previllage($this->session->tipe_user, "1", "!=", "kunjungan/data");
+            // $data['title'] = "CHECK IN LOKASI";
+            // $this->templateadmin->load('template/dashboard', 'kunjungan/lokasi', $data);
+        // } else {
+            // $this->session->set_flashdata('danger', 'Share loc hanya bisa melalui perangkat mobile');
+            // redirect("");
+        // }
+        $this->templateadmin->load('template/dashboard', 'kunjungan/addCheckIn');
+    }
+
+    /*
+        Step 2 - Tambahkan data kunjungan awal
+        Koperasi/UMKM/Wirausaha Pemula --> Isian (1)
+        Kalau di Kantor --> Isian (2)
+    */
+
     function addCheckIn()
     {
         previllage("1", $this->session->tipe_user, "!=", "");
@@ -119,6 +165,65 @@ class Kunjungan extends CI_Controller
                 redirect('kunjungan/data');
             }
         }
+    }
+
+    function addCheckInn()
+    {
+        previllage("1", $this->session->tipe_user, "!=", "");
+
+        $this->load->library("maps");
+        $post = $this->input->post(null, TRUE);
+
+        // Agar tidak bisa check in di lokasi yang sama
+        // $kunjungan_terakhir = $this->kunjungan_m->getByLocation($post['lat'], $post['lng']);
+        // if ($kunjungan_terakhir->num_rows() > 0) {
+        //     $this->session->set_flashdata('danger', 'Anda Tidak bisa checkin di lokasi yang sama dalam sehari');
+        //     redirect("");
+        // }
+
+        // Validasi menghindari injection. Alihkan jika posisi latitude dan longtitude tidak ada
+        // if ($post['lat'] == null or $post['lng'] == null) {
+        //     $this->session->set_flashdata('danger', 'Mohon Share Loc Terlebih Dahulu');
+        //     redirect("kunjungan/checkin");
+        // } else {
+            //Load librarynya form
+            $this->load->library('form_validation');
+            //Atur validasinya
+            $this->form_validation->set_rules('hp', 'hp', 'min_length[10]|max_length[18]');
+            //Pesan yang ditampilkan
+            $this->form_validation->set_message('is_unique', 'Data sudah ada');
+            //Tampilan pesan error
+            $this->form_validation->set_error_delimiters('<span class="badge badge-danger">', '</span>');
+
+            // $this->templateadmin->load('template/dashboard', 'kunjungan/addCheckin');
+
+            if ($this->form_validation->run() == FALSE) {
+                // Redirect agar tidak di hit langsung
+                $post = $this->input->post(null, TRUE);
+
+                // $data['lat'] = $post['lat'];
+                // $data['lng'] = $post['lng'];
+                // $data['loc_img'] = $this->maps->saveMapsTmp($post['lat'], $post['lng']);
+                $data['title'] = "ABSEN KUNJUNGAN";
+                $this->templateadmin->load('template/dashboard', 'kunjungan/addCheckin', $data);
+            } else {
+                $post = $this->input->post(null, TRUE);
+
+                //Input database sesuai tipe
+                if ($post['tipe'] == "UKM" or $post['tipe'] == "KOPERASI" or $post['tipe'] == "CALON WIRAUSAHA") {
+                    $this->kunjungan_m->addCheckInNonLainnya($post);
+                    $this->kunjungan_m->addPoin("10", "kunjungan");
+                } elseif ($post['tipe'] == "LAINNYA") {
+                    $this->kunjungan_m->addCheckInLainnya($post);
+                    $this->kunjungan_m->addPoin("5", "kekantor");
+                }
+
+                if ($this->db->affected_rows() > 0) {
+                    $this->session->set_flashdata('success', 'Check In Berhasil. Silahkan tambahkan data hasil kunjungan.');
+                }
+                redirect('kunjungan/data');
+            }
+        // }
     }
 
     function data()

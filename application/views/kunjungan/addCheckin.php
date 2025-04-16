@@ -77,11 +77,11 @@
 
             <hr>
 
-            <input type="hidden" value="<?= $lat ?>" name="lat" readonly>
+            <!-- <input type="hidden" value="<?= $lat ?>" name="lat" readonly>
             <input type="hidden" value="<?= $lng ?>" name="lng" readonly>
-            <input type="hidden" value="<?= $loc_img ?>" name="loc_img" readonly>
+            <input type="hidden" value="<?= $loc_img ?>" name="loc_img" readonly> -->
 
-            <div class="form-button" ;">
+            <div class="form-button">
                 <button type="submit" class="btn btn-success btn-block btn-lg">ABSEN</button>
             </div>
             <?= form_close() ?>
@@ -175,9 +175,9 @@
                 </div>
             </div>     
             <hr> -->
-                <input type="hidden" value="<?= $lat ?>" name="lat" readonly>
+                <!-- <input type="hidden" value="<?= $lat ?>" name="lat" readonly>
                 <input type="hidden" value="<?= $lng ?>" name="lng" readonly>
-                <input type="hidden" value="<?= $loc_img ?>" name="loc_img" readonly>
+                <input type="hidden" value="<?= $loc_img ?>" name="loc_img" readonly> -->
                 <hr>
                 <div class="form-button" style="display:block;">
                     <button type="submit" class="btn btn-success btn-block btn-lg">ABSEN</button>
